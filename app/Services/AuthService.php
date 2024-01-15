@@ -7,6 +7,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\AuthenticationException;
+use Laravel\Sanctum\NewAccessToken;
 
 class AuthService
 {
@@ -21,7 +22,7 @@ class AuthService
             // handle error
             throw new AuthenticationException;
         }
-        $accessToken = $user->createToken('access_token', ['access-api'], Carbon::now()->addMinutes(config('sanctum.ac_expiration')));
+        $accessToken = $this->createAccessToken($user);
         $refreshToken = $user->createToken('refresh_token', ['issue-access-token'], Carbon::now()->addMinutes(config('sanctum.rt_expiration')));
 
         return [
@@ -31,5 +32,10 @@ class AuthService
             'refresh_token' => $refreshToken->plainTextToken,
             'user' => $user,
         ];
+    }
+
+    public function createAccessToken(User $user): NewAccessToken
+    {
+        return $user->createToken('access_token', ['access-api'], Carbon::now()->addMinutes(config('sanctum.ac_expiration')));
     }
 }

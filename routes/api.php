@@ -15,10 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::post('login', [AuthController::class, 'login']);
+
+Route::middleware(['auth:sanctum', 'ability:issue-access-token'])->group(function () {
+    Route::get('auth/refresh-token', [AuthController::class, 'refreshToken']);
+});
+
+
+Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
+
+});
+
+// test
+Route::middleware(['auth:sanctum', 'ability:access-api'])->get('/user', function (Request $request) {
     return $request->user();
 });
-// Route::middleware('auth:sanctum', 'ability:issue-access-token')->group(function () {
-    // Route::get('/auth/refresh-token', [AuthController::class, 'refreshToken'])->middleware(['auth:sanctum', 'abilities:issue-access-token']);
-// });
-Route::post('login', [AuthController::class, 'login']);
