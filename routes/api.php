@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SocialiteLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
+
+Route::get('url-sign-in/google', [SocialiteLoginController::class, 'googleSignInUrl']);
+Route::get('login/google/callback', [SocialiteLoginController::class, 'googleCallback']);
 
 Route::middleware(['auth:sanctum', 'ability:issue-access-token'])->group(function () {
     Route::get('auth/refresh-token', [AuthController::class, 'refreshToken']);
