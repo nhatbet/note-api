@@ -38,4 +38,11 @@ class AuthController extends Controller
             ],
         ]);
     }
+
+    public function register(Request $request)
+    {
+        $user = $this->authService->register($request->only(['email', 'name', 'password']));
+
+        return $user;
+    }
 }

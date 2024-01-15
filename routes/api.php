@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
 
 Route::middleware(['auth:sanctum', 'ability:issue-access-token'])->group(function () {
     Route::get('auth/refresh-token', [AuthController::class, 'refreshToken']);

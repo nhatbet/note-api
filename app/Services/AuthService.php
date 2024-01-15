@@ -38,4 +38,12 @@ class AuthService
     {
         return $user->createToken('access_token', ['access-api'], Carbon::now()->addMinutes(config('sanctum.ac_expiration')));
     }
+
+    public function register(array $attrs): User
+    {
+        $userRepo = app(UserRepository::class);
+        $user = $userRepo->create($attrs);
+
+        return $user;
+    }
 }
