@@ -20,7 +20,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => 200,
             'message' => 'ok',
-            'data' => $this->authService->authenticate($request->get('email'), $request->get('password')),
+            'data' => $this->authService->authenticate($request->get('username'), $request->get('password')),
         ]);
     }
 
@@ -41,7 +41,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $user = $this->authService->register($request->only(['email', 'name', 'password']));
+        $user = $this->authService->register($request->only(['email', 'name', 'username', 'password']));
 
         return $user;
     }

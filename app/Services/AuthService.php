@@ -11,12 +11,12 @@ use Laravel\Sanctum\NewAccessToken;
 
 class AuthService
 {
-    public function authenticate(string $email, string $password): array
+    public function authenticate(string $username, string $password): array
     {
         /** @var UserRepository $userRepo */
         $userRepo = app(UserRepository::class);
         /** @var ?User $user */
-        $user = $userRepo->findByField('email', $email)->first();
+        $user = $userRepo->findByField('username', $username)->first();
 
         if (!$user || !Hash::check($password, $user->password)) {
             // handle error
