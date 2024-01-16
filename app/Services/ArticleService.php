@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\Article;
 use App\Repositories\ArticleRepository;
+use App\Services\TagService;
+use Illuminate\Support\Arr;
 
 class ArticleService
 {
@@ -11,7 +13,12 @@ class ArticleService
     {
         /** @var ArticleRepository $articleRepo */
         $articleRepo = app(ArticleRepository::class);
-        $article = $articleRepo->create($attrs);
+        $article = $articleRepo->create(Arr::except($attrs, ['tags']));
+
+        /** @var TagService $tagService */
+        $tagService = app(TagService::class);
+        $tagsSaved = $tagService->insert($attrs['tags']);
+        $tagService->attach($article, $tagsSaved);
 
         return $article;
     }
@@ -21,6 +28,11 @@ class ArticleService
         /** @var ArticleRepository $articleRepo */
         $articleRepo = app(ArticleRepository::class);
         $article = $articleRepo->update($attrs, $article->getKey());
+
+        /** @var TagService $tagService */
+        $tagService = app(TagService::class);
+        $tagsSaved = $tagService->insert($attrs['tags']);
+        $tagService->sync($article, $tagsSaved);
 
         return $article;
     }
