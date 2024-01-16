@@ -1,8 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialiteLoginController;
 use App\Http\Controllers\ArticleController;
 
@@ -27,11 +27,17 @@ Route::middleware(['auth:sanctum', 'ability:issue-access-token'])->group(functio
     Route::get('auth/refresh-token', [AuthController::class, 'refreshToken']);
 });
 
-
+// Route for auth
 Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
+    // CRUD Article
     Route::post('articles', [ArticleController::class, 'store']);
     Route::put('articles/{article}', [ArticleController::class, 'update']);
     Route::delete('articles/{article}', [ArticleController::class, 'destroy']);
+
+    // Vote article
+    Route::post('articles/{article}/up-vote', [ArticleController::class, 'upVote']);
+    Route::post('articles/{article}/down-vote', [ArticleController::class, 'downVote']);
+    Route::post('articles/{article}/reset-vote', [ArticleController::class, 'resetVote']);
 });
 
 // test

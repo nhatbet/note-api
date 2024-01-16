@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
+use App\Models\Vote;
 use Prettus\Repository\Eloquent\BaseRepository;
 
-class UserRepository extends BaseRepository
+class VoteRepository extends BaseRepository
 {
     function model(): string
     {
-        return User::class;
+        return Vote::class;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\VoteService;
 use Illuminate\Http\Request;
 use App\Services\ArticleService;
 use Illuminate\Http\JsonResponse;
@@ -48,6 +49,48 @@ class ArticleController extends Controller
             'status' => 200,
             'message' => 'ok',
             'data' => null
+        ]);
+    }
+
+    public function upVote(Request $request, Article $article): JsonResponse
+    {
+        /** @var VoteService $voteService  */
+        $voteService = app(VoteService::class);
+        $vote = $voteService->findVote($request->user(), $article);
+        $vote = $voteService->up($vote);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => $vote,
+        ]);
+    }
+
+    public function downVote(Request $request, Article $article): JsonResponse
+    {
+        /** @var VoteService $voteService  */
+        $voteService = app(VoteService::class);
+        $vote = $voteService->findVote($request->user(), $article);
+        $vote = $voteService->down($vote);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => $vote,
+        ]);
+    }
+
+    public function resetVote(Request $request, Article $article): JsonResponse
+    {
+        /** @var VoteService $voteService  */
+        $voteService = app(VoteService::class);
+        $vote = $voteService->findVote($request->user(), $article);
+        $vote = $voteService->reset($vote);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => $vote,
         ]);
     }
 }
