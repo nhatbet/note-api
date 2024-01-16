@@ -19,6 +19,17 @@ class ArticleController extends Controller
         $this->service = $service;
     }
 
+    public function index(Request $request)
+    {
+        $index = $this->service->index($request);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => $index
+        ]);
+    }
+
     public function store(StoreRequest $request): JsonResponse
     {
         $article = $this->service->store($request->validated() + ['author_id' => $request->user()->getKey()]);

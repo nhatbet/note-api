@@ -5,15 +5,28 @@ namespace App\Services;
 use App\Models\Article;
 use App\Repositories\ArticleRepository;
 use App\Services\TagService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
 class ArticleService
 {
+    protected ArticleRepository $repository;
+
+    public function __construct(ArticleRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function index(Request $request)
+    {
+        $index = $this->repository->paginate(10);
+
+        return $index;
+    }
+
     public function store(array $attrs): Article
     {
-        /** @var ArticleRepository $articleRepo */
-        $articleRepo = app(ArticleRepository::class);
-        $article = $articleRepo->create(Arr::except($attrs, ['tags']));
+        $article = $this->repository->create(Arr::except($attrs, ['tags']));
 
         /** @var TagService $tagService */
         $tagService = app(TagService::class);
@@ -25,9 +38,7 @@ class ArticleService
 
     public function update(Article $article, array $attrs): Article
     {
-        /** @var ArticleRepository $articleRepo */
-        $articleRepo = app(ArticleRepository::class);
-        $article = $articleRepo->update($attrs, $article->getKey());
+        $article = $this->repository->update($attrs, $article->getKey());
 
         /** @var TagService $tagService */
         $tagService = app(TagService::class);
