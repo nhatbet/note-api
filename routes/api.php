@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialiteLoginController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,9 @@ Route::middleware(['auth:sanctum', 'ability:issue-access-token'])->group(functio
 
 
 Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
-
+    Route::post('articles', [ArticleController::class, 'store']);
+    Route::put('articles/{article}', [ArticleController::class, 'update']);
+    Route::delete('articles/{article}', [ArticleController::class, 'destroy']);
 });
 
 // test
