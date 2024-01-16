@@ -8,6 +8,13 @@ use App\Repositories\CommentRepository;
 
 class CommentService
 {
+    protected CommentRepository $repository;
+
+    public function __construct(CommentRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function createForModel(Model $model, $attrs): Comment
     {
         $comment = $model->comments()->create($attrs);
@@ -17,9 +24,7 @@ class CommentService
 
     public function update(Comment $comment, $attrs): Comment
     {
-        /** @var CommentRepository $commentRepo */
-        $commentRepo = app(CommentRepository::class);
-        $comment = $commentRepo->update($attrs, $comment->getKey());
+        $comment = $this->repository->update($attrs, $comment->getKey());
 
         return $comment;
     }

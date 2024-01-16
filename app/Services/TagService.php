@@ -8,14 +8,18 @@ use Illuminate\Support\Collection;
 
 class TagService
 {
+    protected TagRepository $repository;
+
+    public function __construct(TagRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function insert(array $tagNames): Collection
     {
         $tagsSaved = collect();
-        /** @var TagRepository $tagRepo */
-        $tagRepo = app(TagRepository::class);
-
         foreach ($tagNames as $name) {
-            $tag = $tagRepo->firstOrCreate(['name' => $name]);
+            $tag = $this->repository->firstOrCreate(['name' => $name]);
             $tagsSaved->push($tag);
         }
 
