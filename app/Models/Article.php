@@ -35,6 +35,10 @@ class Article extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function reports(): MorphMany
+    {
+        return $this->morphMany(Report::class, 'reportable');
+    }
 
     public function tags(): MorphToMany
     {

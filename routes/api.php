@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\SocialiteLoginController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,12 +41,16 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     Route::post('articles/{article}/down-vote', [ArticleController::class, 'downVote']);
     Route::post('articles/{article}/reset-vote', [ArticleController::class, 'resetVote']);
 
+    // Report article
+    Route::post('articles/{article}/report', [ReportController::class, 'createForArticle']);
+
     // Comment article
     Route::post('articles/{article}/comments', [CommentController::class, 'createForArticle']);
 
     // Comment
     Route::put('comments/{comment}', [CommentController::class, 'update']);
     Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
+    Route::post('comments/{comment}/report', [ReportController::class, 'createForComment']);
 });
 
 // test
