@@ -18,6 +18,11 @@ class Vote extends Model
         'voteable_type',
     ];
 
+    const UP = 1;
+    const DOWN = -1;
+    const RESET = 0;
+
+
     public function voteable(): MorphTo
     {
         return $this->morphTo();

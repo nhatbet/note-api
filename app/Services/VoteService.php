@@ -13,7 +13,7 @@ class VoteService
     {
         /** @var VoteRepository $voteRepo */
         $voteRepo = app(VoteRepository::class);
-        $vote = $voteRepo->update(['value' => 1], $vote->getKey());
+        $vote = $voteRepo->update(['value' => Vote::UP], $vote->getKey());
 
         return $vote;
     }
@@ -22,7 +22,7 @@ class VoteService
     {
         /** @var VoteRepository $voteRepo */
         $voteRepo = app(VoteRepository::class);
-        $vote = $voteRepo->update(['value' => -1], $vote->getKey());
+        $vote = $voteRepo->update(['value' => Vote::DOWN], $vote->getKey());
 
         return $vote;
     }
@@ -31,7 +31,7 @@ class VoteService
     {
         /** @var VoteRepository $voteRepo */
         $voteRepo = app(VoteRepository::class);
-        $vote = $voteRepo->update(['value' => 0], $vote->getKey());
+        $vote = $voteRepo->update(['value' => Vote::RESET], $vote->getKey());
 
         return $vote;
     }
