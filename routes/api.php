@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\SocialiteLoginController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,13 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     Route::post('articles/{article}/up-vote', [ArticleController::class, 'upVote']);
     Route::post('articles/{article}/down-vote', [ArticleController::class, 'downVote']);
     Route::post('articles/{article}/reset-vote', [ArticleController::class, 'resetVote']);
+
+    // Comment article
+    Route::post('articles/{article}/comments', [CommentController::class, 'createForArticle']);
+
+    // Comment
+    Route::put('comments/{comment}', [CommentController::class, 'update']);
+    Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
 });
 
 // test

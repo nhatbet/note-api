@@ -30,6 +30,12 @@ class Article extends Model
         return $this->morphMany(Vote::class, 'voteable');
     }
 
+    public function comments(): MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
+
     public function tags(): MorphToMany
     {
         return $this->morphToMany(Tag::class, 'taggable');
