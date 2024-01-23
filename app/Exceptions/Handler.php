@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\AuthenticationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -33,6 +34,7 @@ class Handler extends ExceptionHandler
     {
         switch (true) {
             case $e instanceof ValidationException:
+            case $e instanceof AuthenticationException:
                 return response()->json([
                     'status' => $e->getCode(),
                     'message' => $e->getMessage(),

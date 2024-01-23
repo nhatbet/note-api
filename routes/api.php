@@ -31,6 +31,8 @@ Route::middleware(['auth:sanctum', 'ability:issue-access-token'])->group(functio
 
 // Route for auth
 Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+
     // CRUD Article
     Route::get('articles', [ArticleController::class, 'index']);
     Route::post('articles', [ArticleController::class, 'store']);

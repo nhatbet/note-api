@@ -26,6 +26,17 @@ class AuthController extends Controller
         ]);
     }
 
+    public function logout(Request $request): JsonResponse
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => null,
+        ]);
+    }
+
     public function refreshToken(Request $request): JsonResponse
     {
         $accessToken = $this->authService->createAccessToken($request->user());
