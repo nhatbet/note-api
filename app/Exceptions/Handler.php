@@ -34,6 +34,11 @@ class Handler extends ExceptionHandler
     {
         switch (true) {
             case $e instanceof ValidationException:
+                return response()->json([
+                    'status' => '422',
+                    'message' => $e->getMessage(),
+                    'data' => $e->errors(),
+                ]);
             case $e instanceof AuthenticationException:
                 return response()->json([
                     'status' => $e->getCode(),
