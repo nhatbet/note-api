@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\UserRepository;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as GGUser;
 
@@ -21,7 +22,7 @@ class SocialiteLoginController extends Controller
         ]);
     }
 
-    public function googleCallback(): JsonResponse
+    public function googleCallback(Request $request): JsonResponse
     {
         /** @var GGUser $ggUser */
         $ggUser = Socialite::driver('google')->stateless()->user();
@@ -49,6 +50,7 @@ class SocialiteLoginController extends Controller
                 'token_type' => 'Bearer',
                 'access_token' => $accessToken->plainTextToken,
                 'expires_at' => $accessToken->accessToken->expires_at,
+                'user' => $user,
             ],
         ]);
     }
