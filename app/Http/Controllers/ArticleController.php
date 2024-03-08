@@ -19,7 +19,7 @@ class ArticleController extends Controller
         $this->service = $service;
     }
 
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $index = $this->service->index($request);
 

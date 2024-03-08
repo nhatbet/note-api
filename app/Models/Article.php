@@ -40,6 +40,11 @@ class Article extends Model
         return $this->morphMany(Report::class, 'reportable');
     }
 
+    public function saves(): MorphMany
+    {
+        return $this->morphMany(Save::class, 'saveable');
+    }
+
     public function tags(): MorphToMany
     {
         return $this->morphToMany(Tag::class, 'taggable');

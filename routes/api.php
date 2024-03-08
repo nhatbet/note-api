@@ -7,6 +7,7 @@ use App\Http\Controllers\SocialiteLoginController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SaveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,9 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     // CRUD Article
     Route::get('articles', [ArticleController::class, 'index']);
     Route::post('articles', [ArticleController::class, 'store']);
+    // TODO: check permission
     Route::put('articles/{article}', [ArticleController::class, 'update']);
+    // TODO: check permission
     Route::delete('articles/{article}', [ArticleController::class, 'destroy']);
 
     // Vote article
@@ -51,9 +54,16 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     Route::post('articles/{article}/comments', [CommentController::class, 'createForArticle']);
 
     // Comment
+    // TODO: check permission
     Route::put('comments/{comment}', [CommentController::class, 'update']);
+    // TODO: check permission
     Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
     Route::post('comments/{comment}/report', [ReportController::class, 'createForComment']);
+
+    // Save
+    // TODO: check permission
+    Route::delete('saves/{save}' ,[SaveController::class, 'destroy']);
+    Route::post('articles/{article}/save' ,[SaveController::class, 'createForArticle']);
 });
 
 // test
