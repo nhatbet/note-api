@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\AuthenticationException;
@@ -35,7 +36,7 @@ class Handler extends ExceptionHandler
         switch (true) {
             case $e instanceof ValidationException:
                 return response()->json([
-                    'status' => '422',
+                    'status' => 422,
                     'message' => $e->getMessage(),
                     'data' => $e->errors(),
                 ]);
@@ -43,6 +44,12 @@ class Handler extends ExceptionHandler
                 return response()->json([
                     'status' => $e->getCode(),
                     'message' => $e->getMessage(),
+                    'data' => null,
+                ]);
+            case $e instanceof ModelNotFoundException:
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Not found',
                     'data' => null,
                 ]);
             default:

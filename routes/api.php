@@ -8,6 +8,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaveController;
+use App\Http\Controllers\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,8 +63,15 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
 
     // Save
     // TODO: check permission
-    Route::delete('saves/{save}' ,[SaveController::class, 'destroy']);
-    Route::post('articles/{article}/save' ,[SaveController::class, 'createForArticle']);
+    Route::delete('saves/{save}', [SaveController::class, 'destroy']);
+    Route::post('articles/{article}/save', [SaveController::class, 'createForArticle']);
+
+    // Question
+    Route::post('questions', [QuestionController::class, 'store']);
+    // TODO: check permission
+    Route::put('questions/{question}', [QuestionController::class, 'update']);
+    // TODO: check permission
+    Route::delete('questions/{question}', [QuestionController::class, 'destroy']);
 });
 
 // test

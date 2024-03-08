@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Article;
+namespace App\Http\Requests\Question;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'title' => 'bail|required|string|max:255',
             'content' => 'bail|required|string|max:3000',
-            'status' => 'bail|integer|min:1',
+            'solution' => 'bail|required|string|max:3000',
             'tags' => 'array|required|max:4',
             'tags.*' => 'bail|required|string',
         ];
