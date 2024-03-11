@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('body');
+            $table->integer('type')->nullable();
             $table->integer('receiver_id');
             $table->integer('status')->default(1);
             $table->timestamp('send_at');
