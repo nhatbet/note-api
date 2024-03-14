@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('solution');
             $table->tinyInteger('status')->default(1);
             $table->integer('questioner_id');
+            $table->integer('view_count')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

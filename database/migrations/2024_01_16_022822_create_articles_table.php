@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('content');
             $table->integer('author_id');
             $table->tinyInteger('status')->default(1);
+            $table->integer('view_count')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -18,6 +18,7 @@ class Question extends Model
         'solution',
         'status',
         'questioner_id',
+        'view_count',
     ];
 
     public function commentator(): BelongsTo

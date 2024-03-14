@@ -18,6 +18,7 @@ class Article extends Model
         'content',
         'author_id',
         'status',
+        'view_count',
     ];
 
     public function author(): BelongsTo
