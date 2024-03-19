@@ -9,6 +9,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaveController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\DeviceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,6 +73,9 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     Route::put('questions/{question}', [QuestionController::class, 'update']);
     // TODO: check permission
     Route::delete('questions/{question}', [QuestionController::class, 'destroy']);
+
+    // Device
+    Route::post('devices', [DeviceController::class, 'store']);
 });
 
 // test

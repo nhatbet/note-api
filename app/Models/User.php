@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class, 'author_id', 'id');
     }
+
+    public function devices(): HasMany
+    {
+        return $this->hasMany(Device::class, 'user_id', 'id');
+    }
 }
