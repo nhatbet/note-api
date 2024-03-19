@@ -7,6 +7,8 @@ use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Events\LoggedOut;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -28,7 +30,10 @@ class AuthController extends Controller
 
     public function logout(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        /** @var User $user */
+        $user = $request->user();
+        $user->currentAccessToken()->delete();
+        LoggedOut::dispatch($user->getKey(), $request->userAgent());
 
         return response()->json([
             'status' => 200,
