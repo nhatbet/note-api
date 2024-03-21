@@ -8,6 +8,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Events\LoggedOut;
 use App\Listeners\DeleteDevice;
+use App\Events\ArticleUpdated;
+use App\Listeners\CreateArticleHistory;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         LoggedOut::class => [
             DeleteDevice::class,
+        ],
+        ArticleUpdated::class => [
+            CreateArticleHistory::class,
         ],
     ];
 

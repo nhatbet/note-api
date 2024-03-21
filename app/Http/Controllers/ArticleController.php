@@ -43,7 +43,7 @@ class ArticleController extends Controller
 
     public function update(UpdateRequest $request, Article $article): JsonResponse
     {
-        $article = $this->service->update($article, $request->validated());
+        $article = $this->service->update($article, $request->validated() + ['editor' => $request->user()]);
 
         return response()->json([
             'status' => 200,
