@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\CommentRepository;
+use App\Events\CommentUpdated;
 
 class CommentService
 {
@@ -24,7 +25,10 @@ class CommentService
 
     public function update(Comment $comment, $attrs): Comment
     {
+        $oldComment = clone $comment;
         $comment = $this->repository->update($attrs, $comment->getKey());
+
+        CommentUpdated::dispatch($oldComment, $comment, $attrs['editor']);
 
         return $comment;
     }

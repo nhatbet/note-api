@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Event;
 use App\Events\LoggedOut;
 use App\Listeners\DeleteDevice;
 use App\Events\ArticleUpdated;
+use App\Events\CommentUpdated;
 use App\Listeners\CreateArticleHistory;
+use App\Listeners\CreateCommentHistory;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,9 @@ class EventServiceProvider extends ServiceProvider
         ArticleUpdated::class => [
             CreateArticleHistory::class,
         ],
+        CommentUpdated::class => [
+            CreateCommentHistory::class,
+        ]
     ];
 
     /**

@@ -31,7 +31,7 @@ class CommentController extends Controller
 
     public function update(UpdateRequest $request, Comment $comment): JsonResponse
     {
-        $comment = $this->service->update($comment, $request->validated() + ['commentator_id' => $request->user()->getKey()]);
+        $comment = $this->service->update($comment, $request->validated() + ['editor' => $request->user()]);
 
         return response()->json([
             'status' => 200,
