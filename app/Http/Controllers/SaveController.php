@@ -17,6 +17,17 @@ class SaveController extends Controller
         $this->service = $service;
     }
 
+    public function index(Request $request): JsonResponse
+    {
+        $saves = $this->service->index($request);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => $saves
+        ]);
+    }
+
     public function createForArticle(Request $request, Article $article): JsonResponse
     {
         $save = $this->service->findSave($request->user(),  $article);
