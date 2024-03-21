@@ -39,40 +39,34 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     // CRUD Article
     Route::get('articles', [ArticleController::class, 'index']);
     Route::post('articles', [ArticleController::class, 'store']);
-    // TODO: check permission
-    Route::put('articles/{article}', [ArticleController::class, 'update']);
-    // TODO: check permission
-    Route::delete('articles/{article}', [ArticleController::class, 'destroy']);
+    Route::put('articles/{article}', [ArticleController::class, 'update'])->can('update', 'article');
+    Route::delete('articles/{article}', [ArticleController::class, 'destroy'])->can('delete', 'article');
 
     // Vote article
     Route::post('articles/{article}/up-vote', [ArticleController::class, 'upVote']);
     Route::post('articles/{article}/down-vote', [ArticleController::class, 'downVote']);
     Route::post('articles/{article}/reset-vote', [ArticleController::class, 'resetVote']);
 
-    // Report article
+    // Report
     Route::post('articles/{article}/report', [ReportController::class, 'createForArticle']);
+    Route::post('comments/{comment}/report', [ReportController::class, 'createForComment']);
 
     // Comment article
     Route::post('articles/{article}/comments', [CommentController::class, 'createForArticle']);
 
     // Comment
-    // TODO: check permission
-    Route::put('comments/{comment}', [CommentController::class, 'update']);
-    // TODO: check permission
-    Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
-    Route::post('comments/{comment}/report', [ReportController::class, 'createForComment']);
+    Route::put('comments/{comment}', [CommentController::class, 'update'])->can('update', 'comment');
+    Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->can('delete', 'comment');
 
     // Save
     // TODO: check permission
-    Route::delete('saves/{save}', [SaveController::class, 'destroy']);
+    Route::delete('saves/{save}', [SaveController::class, 'destroy'])->can('delete', 'save');
     Route::post('articles/{article}/save', [SaveController::class, 'createForArticle']);
 
     // Question
     Route::post('questions', [QuestionController::class, 'store']);
-    // TODO: check permission
-    Route::put('questions/{question}', [QuestionController::class, 'update']);
-    // TODO: check permission
-    Route::delete('questions/{question}', [QuestionController::class, 'destroy']);
+    Route::put('questions/{question}', [QuestionController::class, 'update'])->can('update', 'question');
+    Route::delete('questions/{question}', [QuestionController::class, 'destroy'])->can('delete', 'question');
 
     // Device
     Route::post('devices', [DeviceController::class, 'store']);

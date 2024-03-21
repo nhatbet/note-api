@@ -25,6 +25,7 @@ class CreateArticleHistory
      */
     public function handle(ArticleUpdated $event): void
     {
+        // TODO: Check OldArticle != NewArticle
         $this->articleHistoryService->store([
             'editor_id' => $event->getEditor()->getKey(),
             'old_value' => $event->getOldArticle(),
