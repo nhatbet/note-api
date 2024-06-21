@@ -8,6 +8,8 @@
 ### Setup
 Install docker and docker-compose on your PC
 Access the project root directory. Execute cmd:
+`cp .env.example .env` and config **.env**
+`cp docker-compose.dev.yml docker-compose.yml` and config **docker-compose.yml**
 - ##### 1. Linux, macos
     - `make install`
 - ##### 2. Window
