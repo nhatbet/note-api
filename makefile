@@ -8,7 +8,7 @@ start:
 stop:
 	- docker-compose stop
 down:
-	- docker-compose stop
+	- docker-compose down
 kill:
 	docker compose kill
 build:

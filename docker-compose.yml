@@ -36,7 +36,9 @@ services:
     tty: true
     command: --sql_mode=''
     ports:
-      - '3306:3306'
+      - '3307:3306'
+    volumes:
+      - ./mysql:/var/lib/mysql
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
