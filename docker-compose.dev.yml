@@ -48,11 +48,11 @@ services:
       SERVICE_NAME: mysql
     networks:
       - app-network
-  composer:
-    image: 'composer:latest'
-    container_name: 'composer_${APP_NAME}'
-    volumes:
-      - './:/var/www/html'
-    working_dir: /var/www/html
-    networks:
-      - app-network
+  # composer:
+  #   image: 'composer:latest'
+  #   container_name: 'composer_${APP_NAME}'
+  #   volumes:
+  #     - './:/var/www/html'
+  #   working_dir: /var/www/html
+  #   networks:
+  #     - app-network

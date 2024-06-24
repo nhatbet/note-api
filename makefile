@@ -1,6 +1,6 @@
 install:
 	- docker-compose up -d
-	- docker-compose run --rm composer composer install
+	- docker-compose run --rm php composer install
 	- docker-compose run --rm php php artisan migrate
 	- docker-compose run --rm php php artisan db:seed
 start:
@@ -16,9 +16,9 @@ build:
 migrate:
 	- docker-compose run --rm php php artisan migrate
 composer-autoload:
-	- docker-compose run --rm composer composer dump-autoload
+	- docker-compose run --rm php composer dump-autoload
 composer-install:
-	- docker-compose run --rm composer composer install
+	- docker-compose run --rm php composer install
 php:
 	- docker-compose run --rm php sh
 refresh-remote:
