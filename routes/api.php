@@ -10,6 +10,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaveController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\MediaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,9 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
 
     // Device
     Route::post('devices', [DeviceController::class, 'store']);
+
+    // Media
+    Route::post('upload', [MediaController::class, 'upload']);
 });
 
 // test
