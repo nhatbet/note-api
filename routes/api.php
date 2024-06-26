@@ -11,6 +11,7 @@ use App\Http\Controllers\SaveController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\SelectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,8 @@ Route::get('login/google/callback', [SocialiteLoginController::class, 'googleCal
 Route::middleware(['auth:sanctum', 'ability:issue-access-token'])->group(function () {
     Route::get('auth/refresh-token', [AuthController::class, 'refreshToken']);
 });
+
+Route::get('selection', [SelectionController::class, 'index']);
 
 // Route for auth
 Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {

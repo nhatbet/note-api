@@ -21,6 +21,10 @@ class Article extends Model
         'status',
         'view_count',
     ];
+    
+    const STATUS_DRAFT = 1;
+    const STATUS_PUBLIC = 2;
+    const STATUS_PRIVATE = 3;
 
     public function author(): BelongsTo
     {
