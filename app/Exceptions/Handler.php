@@ -43,7 +43,7 @@ class Handler extends ExceptionHandler
                 ]);
             case $e instanceof AuthenticationException:
                 return response()->json([
-                    'status' => $e->getCode(),
+                    'status' => 401,
                     'message' => $e->getMessage(),
                     'data' => null,
                 ]);

@@ -14,14 +14,17 @@ class SelectionController extends Controller
             [
                 'label' => 'draft',
                 'value' => Article::STATUS_DRAFT,
+                'description' => 'Trang thai nhap',
             ],
             [
                 'label' => 'public',
                 'value' => Article::STATUS_PUBLIC,
+                'description' => 'Trang thai cong bo',
             ],
             [
                 'label' => 'private',
                 'value' => Article::STATUS_PRIVATE,
+                'description' => 'Trang thai rieng tu',
             ],
         ];
 

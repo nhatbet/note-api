@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
             'title' => 'bail|required|string|max:255',
             'content' => 'bail|required|string|max:3000',
             'status' => 'bail|integer|min:1',
-            'tags' => 'array|required|max:4',
+            'tags' => 'nullable|array|max:4',
             'tags.*' => 'bail|required|string',
         ];
     }
