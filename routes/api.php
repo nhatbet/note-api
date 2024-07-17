@@ -36,12 +36,14 @@ Route::middleware(['auth:sanctum', 'ability:issue-access-token'])->group(functio
 
 Route::get('selection', [SelectionController::class, 'index']);
 
+Route::get('articles', [ArticleController::class, 'index']);
+Route::get('articles/{article}', [ArticleController::class, 'show']);
 // Route for auth
 Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     // CRUD Article
-    Route::get('articles', [ArticleController::class, 'index']);
+    // Route::get('articles', [ArticleController::class, 'index']);
     Route::post('articles', [ArticleController::class, 'store']);
     Route::put('articles/{article}', [ArticleController::class, 'update'])->can('update', 'article');
     Route::delete('articles/{article}', [ArticleController::class, 'destroy'])->can('delete', 'article');

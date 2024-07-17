@@ -31,6 +31,11 @@ class Article extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
     public function votes(): MorphMany
     {
         return $this->morphMany(Vote::class, 'voteable');

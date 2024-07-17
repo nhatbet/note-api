@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\Article;
+use App\Models\Category;
 
 class SelectionController extends Controller
 {
@@ -27,6 +28,15 @@ class SelectionController extends Controller
                 'description' => 'Trang thai rieng tu',
             ],
         ];
+
+        $categories = Category::all();
+        foreach ($categories as $key => $category) {
+            $selection['categories'][] = [
+                'label' => $category->name,
+                'value' => $category->getKey(),
+                'description' => null,
+            ];
+        }
 
         return response()->json([
             'status' => 200,

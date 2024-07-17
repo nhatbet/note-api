@@ -29,10 +29,10 @@ class ArticleService
     {
         $article = $this->repository->create(Arr::except($attrs, ['tags']));
 
-        /** @var TagService $tagService */
-        $tagService = app(TagService::class);
-        $tagsSaved = $tagService->insert($attrs['tags']);
-        $tagService->attach($article, $tagsSaved);
+        // /** @var TagService $tagService */
+        // $tagService = app(TagService::class);
+        // $tagsSaved = $tagService->insert($attrs['tags']);
+        // $tagService->attach($article, $tagsSaved);
 
         return $article;
     }

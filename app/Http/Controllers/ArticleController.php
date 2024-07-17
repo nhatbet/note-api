@@ -30,6 +30,17 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function show(Article $article): JsonResponse
+    {
+        $article->load('comments');
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => $article
+        ]);
+    }
+
     public function store(StoreRequest $request): JsonResponse
     {
         $article = $this->service->store($request->validated() + ['author_id' => $request->user()->getKey()]);
