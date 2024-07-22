@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\User;
 
 class SelectionController extends Controller
 {
@@ -26,6 +27,24 @@ class SelectionController extends Controller
                 'label' => 'private',
                 'value' => Article::STATUS_PRIVATE,
                 'description' => 'Trang thai rieng tu',
+            ],
+        ];
+
+        $selection['genders'] = [
+            [
+                'label' => 'male',
+                'value' => User::GENDER_MALE,
+                'description' => 'Male',
+            ],
+            [
+                'label' => 'female',
+                'value' => User::GENDER_FEMALE,
+                'description' => 'Female',
+            ],
+            [
+                'label' => 'other',
+                'value' => User::GENDER_OTHER,
+                'description' => 'Other',
             ],
         ];
 

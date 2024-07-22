@@ -12,6 +12,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\SelectionController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,10 @@ Route::get('articles/{article}', [ArticleController::class, 'show']);
 // Route for auth
 Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
+
+    // Profile
+    Route::get('user/profile', [UserController::class, 'getProfile']);
+    Route::post('user/profile', [UserController::class, 'updateProfile']);
 
     // CRUD Article
     // Route::get('articles', [ArticleController::class, 'index']);

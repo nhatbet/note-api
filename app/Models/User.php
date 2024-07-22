@@ -27,7 +27,14 @@ class User extends Authenticatable implements HasMedia
         'provider_name',
         'email',
         'password',
+        'avatar',
+        'dob',
+        'gender',
     ];
+
+    const GENDER_MALE = 1;
+    const GENDER_FEMALE = 2;
+    const GENDER_OTHER = 3;
 
     /**
      * The attributes that should be hidden for serialization.
