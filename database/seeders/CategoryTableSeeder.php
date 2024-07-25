@@ -15,16 +15,20 @@ class CategoryTableSeeder extends Seeder
     {
         Category::insert([
             [
-                'name' => 'While this code', 
+                'name' => 'While this code',
+                'meta' => "{\"color\":\"#eb4034\"}"
             ],
             [
-                'name' => 'Quality of your ', 
+                'name' => 'Quality of your ',
+                'meta' => "{\"color\":\"#2de33d\"}"
             ],
             [
-                'name' => 'He person asking n', 
+                'name' => 'He person asking n',
+                'meta' => "{\"color\":\"#2d97e3\"}"
             ],
             [
-                'name' => 'Con Stack Ov', 
+                'name' => 'Con Stack Ov',
+                'meta' => "{\"color\":\"#e3e02d\"}"
             ],
         ]);
     }
