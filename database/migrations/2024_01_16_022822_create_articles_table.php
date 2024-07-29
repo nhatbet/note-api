@@ -21,6 +21,8 @@ return new class extends Migration
             $table->integer('view_count')->default(0);
             $table->softDeletes();
             $table->timestamps();
+
+            $table->fullText('title');
         });
     }
 

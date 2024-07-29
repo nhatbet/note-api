@@ -20,7 +20,13 @@ class ArticleService
 
     public function index(Request $request)
     {
-        $index = $this->repository->where('status', Article::STATUS_PUBLIC)->paginate(10);
+        $query = $this->repository
+            ->where('status', Article::STATUS_PUBLIC);
+        if ($request->has('title')) {
+            $query->search($request->get('title'));
+        }
+
+        $index = $query->paginate(10);
 
         return $index;
     }

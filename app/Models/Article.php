@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\FullTextSearch;
 
 class Article extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, FullTextSearch;
 
     protected $fillable = [
         'title',
@@ -20,6 +21,13 @@ class Article extends Model
         'author_id',
         'status',
         'view_count',
+    ];
+
+    /**
+     * The columns of the full text index
+     */
+    protected $searchable = [
+        'title',
     ];
     
     const STATUS_DRAFT = 1;
