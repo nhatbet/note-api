@@ -7,7 +7,6 @@ use App\Repositories\ArticleRepository;
 use App\Services\TagService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use App\Events\ArticleUpdated;
 
 class ArticleService
 {
@@ -52,8 +51,6 @@ class ArticleService
         $tagService = app(TagService::class);
         $tagsSaved = $tagService->insert($attrs['tags']);
         $tagService->sync($article, $tagsSaved);
-
-        ArticleUpdated::dispatch($oldArticle, $article, $attrs['editor']);
 
         return $article;
     }
