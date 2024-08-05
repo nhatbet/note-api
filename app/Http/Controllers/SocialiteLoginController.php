@@ -25,7 +25,8 @@ class SocialiteLoginController extends Controller
     public function googleCallback(Request $request): JsonResponse
     {
         /** @var GGUser $ggUser */
-        $ggUser = Socialite::driver('google')->stateless()->user();
+        // $ggUser = Socialite::driver('google')->stateless()->user();
+        $ggUser = Socialite::with($request->provider)->stateless()->userFromToken($request->access_token);
         /** @var UserRepository $userRepo */
         $userRepo = app(UserRepository::class);
         $user = $userRepo->updateOrCreate(
