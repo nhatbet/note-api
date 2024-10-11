@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Report;
 use App\Models\User;
 use App\Models\Tag;
 
@@ -46,6 +47,29 @@ class SelectionController extends Controller
                 'label' => 'other',
                 'value' => User::GENDER_OTHER,
                 'description' => 'Other',
+            ],
+        ];
+
+        $selection['report_categories'] = [
+            [
+                'label' => Report::TYPE_NAME_1,
+                'value' => Report::TYPE_1,
+                'description' => null,
+            ],
+            [
+                'label' => Report::TYPE_NAME_2,
+                'value' => Report::TYPE_2,
+                'description' => null,
+            ],
+            [
+                'label' => Report::TYPE_NAME_3,
+                'value' => Report::TYPE_3,
+                'description' => null,
+            ],
+            [
+                'label' => Report::TYPE_NAME_4,
+                'value' => Report::TYPE_4,
+                'description' => null,
             ],
         ];
 

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->text('content');
+            $table->tinyInteger('type');
             $table->integer('reporter_id');
             $table->integer('reportable_id');
             $table->string('reportable_type');

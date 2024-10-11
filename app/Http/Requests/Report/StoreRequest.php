@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Report;
 
+use App\Models\Report;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -23,6 +25,10 @@ class StoreRequest extends FormRequest
     {
         return [
             'content' => 'bail|required|string|max:2000',
+            'type' => [
+                'required',
+                Rule::in([Report::TYPE_1, Report::TYPE_2, Report::TYPE_3, Report::TYPE_4])
+            ],
         ];
     }
 }
