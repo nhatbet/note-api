@@ -15,19 +15,19 @@ class CategoryTableSeeder extends Seeder
     {
         Category::insert([
             [
-                'name' => 'While this code',
+                'name' => 'Lập trình', 
                 'meta' => "{\"color\":\"#eb4034\"}"
             ],
             [
-                'name' => 'Quality of your ',
+                'name' => 'Tiếng Anh', 
                 'meta' => "{\"color\":\"#2de33d\"}"
             ],
             [
-                'name' => 'He person asking n',
+                'name' => 'Câu hỏi', 
                 'meta' => "{\"color\":\"#2d97e3\"}"
             ],
             [
-                'name' => 'Con Stack Ov',
+                'name' => 'Chuyện trò', 
                 'meta' => "{\"color\":\"#e3e02d\"}"
             ],
         ]);

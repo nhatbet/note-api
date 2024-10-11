@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\Tag;
 
 class SelectionController extends Controller
 {
@@ -54,6 +55,15 @@ class SelectionController extends Controller
                 'label' => $category->name,
                 'value' => $category->getKey(),
                 'description' => null,
+            ];
+        }
+
+        $tags = Tag::all();
+        foreach ($tags as $key => $tag) {
+            $selection['tags'][] = [
+                'label' => $tag->name,
+                'value' => $tag->getKey(),
+                'description' => $tag->description,
             ];
         }
 

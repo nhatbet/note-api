@@ -32,7 +32,7 @@ class ArticleController extends Controller
 
     public function show(Article $article): JsonResponse
     {
-        $article->load('comments');
+        $article->load(['comments', 'author']);
 
         return response()->json([
             'status' => 200,

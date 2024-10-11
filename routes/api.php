@@ -39,6 +39,9 @@ Route::get('selection', [SelectionController::class, 'index']);
 
 Route::get('articles', [ArticleController::class, 'index']);
 Route::get('articles/{article}', [ArticleController::class, 'show']);
+Route::get('comments/get-by-article', [CommentController::class, 'getByArticle']);
+Route::get('comments', [CommentController::class, 'index']);
+Route::get('comments/articles-count', [CommentController::class, 'getCountByArticle']);
 // Route for auth
 Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);

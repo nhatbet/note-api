@@ -25,7 +25,7 @@ class ArticleService
             $query->search($request->get('title'));
         }
 
-        $index = $query->paginate(10);
+        $index = $query->paginate(20);
 
         return $index;
     }
@@ -47,10 +47,10 @@ class ArticleService
         $oldArticle = clone $article;
         $article = $this->repository->update($attrs, $article->getKey());
 
-        /** @var TagService $tagService */
-        $tagService = app(TagService::class);
-        $tagsSaved = $tagService->insert($attrs['tags']);
-        $tagService->sync($article, $tagsSaved);
+        // /** @var TagService $tagService */
+        // $tagService = app(TagService::class);
+        // $tagsSaved = $tagService->insert($attrs['tags']);
+        // $tagService->sync($article, $tagsSaved);
 
         return $article;
     }

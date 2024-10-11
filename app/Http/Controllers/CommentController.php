@@ -8,6 +8,7 @@ use App\Services\CommentService;
 use App\Http\Requests\Comment\StoreRequest;
 use App\Http\Requests\Comment\UpdateRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
@@ -16,6 +17,33 @@ class CommentController extends Controller
     public function __construct(CommentService $service)
     {
         $this->service = $service;
+    }
+
+    public function getByArticle(Request $request): JsonResponse
+    {
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => $this->service->getByArticle($request)
+        ]);
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => $this->service->index($request)
+        ]);
+    }
+
+    public function getCountByArticle(Request $request): JsonResponse
+    {
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => $this->service->getCountByArticle($request)
+        ]);
     }
 
     public function createForArticle(StoreRequest $request, Article $article): JsonResponse

@@ -20,7 +20,7 @@ class AuthService
 
         if (!$user || !Hash::check($password, $user->password)) {
             // handle error
-            throw new AuthenticationException;
+            throw new AuthenticationException('Username or password is incorrect');
         }
         $accessToken = $this->createAccessToken($user);
         $refreshToken = $user->createToken('refresh_token', ['issue-access-token'], Carbon::now()->addMinutes(config('sanctum.rt_expiration')));
