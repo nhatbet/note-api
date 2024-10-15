@@ -76,8 +76,10 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
 
     // Save
     // TODO: check permission
-    Route::delete('saves/{save}', [SaveController::class, 'destroy'])->can('delete', 'save');
-    Route::post('articles/{article}/save', [SaveController::class, 'createForArticle']);
+    // Route::post('saves/{save}/delete', [SaveController::class, 'unSave'])->can('delete', 'save');
+    Route::post('articles/{article}/save', [SaveController::class, 'saveArticle']);
+    Route::post('articles/{article}/unsave', [SaveController::class, 'unSaveArticle']);
+    Route::get('articles/{article}/save-status', [SaveController::class, 'getByArticle']);
     Route::get('saves', [SaveController::class, 'index']);
 
     // Question

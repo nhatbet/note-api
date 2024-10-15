@@ -25,25 +25,37 @@ class SaveService
         return $saves;
     }
 
-    public function save(Model $model): Save
+    public function unSave(User $saver, Model $model): void
     {
-        $save = $model->saves()->create();
-
-        return $save;
+        $ms = $this->repository->updateOrCreate(
+            [
+                'saver_id' => $saver->getKey(),
+                'saveable_id' => $model->getKey(),
+                'saveable_type' => get_class($model),
+            ],
+            ['status' => Save::STATUS_DELETED]
+        );
     }
 
-    public function unSave(Save $save): void
+    public function save(User $saver, Model $model): void
     {
-        $save->delete();
+        $this->repository->updateOrCreate(
+            [
+                'saver_id' => $saver->getKey(),
+                'saveable_id' => $model->getKey(),
+                'saveable_type' => get_class($model),
+            ],
+            ['status' => Save::STATUS_SAVED]
+        );
     }
 
-    public function findSave(User $saver, Model $model): Save
+    public function getByModel(User $saver, Model $model): ?Save
     {
-        $save = $this->repository->firstOrCreate([
+        $save = $this->repository->where([
             'saver_id' => $saver->getKey(),
             'saveable_id' => $model->getKey(),
             'saveable_type' => get_class($model),
-        ]);
+        ])->first();
 
         return $save;
     }

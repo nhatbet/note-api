@@ -28,28 +28,36 @@ class SaveController extends Controller
         ]);
     }
 
-    public function createForArticle(Request $request, Article $article): JsonResponse
+    public function saveArticle(Request $request, Article $article): JsonResponse
     {
-        $save = $this->service->findSave($request->user(),  $article);
-        if (is_null($save)) {
-            $save = $this->service->save($article);
-        }
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'ok',
-            'data' => $save
-        ]);
-    }
-
-    public function destroy(Save $save): JsonResponse
-    {
-        $this->service->unSave($save);
-
+        $this->service->save($request->user(),  $article);
+ 
         return response()->json([
             'status' => 200,
             'message' => 'ok',
             'data' => null
+        ]);
+    }
+
+    public function unSaveArticle(Request $request, Article $article): JsonResponse
+    {
+        $this->service->unSave($request->user(),  $article);
+ 
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => null
+        ]);
+    }
+
+    public function getByArticle(Request $request, Article $article): JsonResponse
+    {
+        $save = $this->service->getByModel($request->user(),  $article);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => !!$save
         ]);
     }
 }

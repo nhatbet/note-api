@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Save;
 
 return new class extends Migration
 {
@@ -16,6 +17,7 @@ return new class extends Migration
             $table->integer('saver_id');
             $table->integer('saveable_id');
             $table->string('saveable_type');
+            $table->tinyInteger('status')->default(Save::STATUS_SAVED);
             $table->timestamps();
         });
     }

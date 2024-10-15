@@ -15,7 +15,11 @@ class Save extends Model
         'saver_id',
         'saveable_id',
         'saveable_type',
+        'status',
     ];
+
+    const STATUS_SAVED = 1;
+    const STATUS_DELETED = 2;
 
     public function saver(): BelongsTo
     {
