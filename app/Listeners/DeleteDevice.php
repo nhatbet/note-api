@@ -5,17 +5,17 @@ namespace App\Listeners;
 use App\Events\LoggedOut;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use App\Services\DeviceService;
+use App\Services\DeviceTokenService;
 
 class DeleteDevice implements ShouldQueue
 {
     // public string $queue = 'delete-device';
-    private DeviceService $deviceService;
+    private DeviceTokenService $deviceService;
 
     /**
      * Create the event listener.
      */
-    public function __construct(DeviceService $deviceService)
+    public function __construct(DeviceTokenService $deviceService)
     {
         $this->deviceService = $deviceService;
     }
@@ -25,6 +25,6 @@ class DeleteDevice implements ShouldQueue
      */
     public function handle(LoggedOut $event): void
     {
-        $this->deviceService->deleteByName($event->getDeviceName(), $event->getUserId());
+        $this->deviceService->delete($event->getUserId());
     }
 }

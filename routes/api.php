@@ -9,7 +9,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaveController;
 use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\DeviceTokenController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\SelectionController;
 use App\Http\Controllers\UserController;
@@ -34,6 +34,8 @@ Route::get('login/google/callback', [SocialiteLoginController::class, 'googleCal
 Route::middleware(['auth:sanctum', 'ability:issue-access-token'])->group(function () {
     Route::get('auth/refresh-token', [AuthController::class, 'refreshToken']);
 });
+
+Route::get('device-tokens/send-demo', [DeviceTokenController::class, 'sendDemoToFirstToken']);
 
 Route::get('selection', [SelectionController::class, 'index']);
 
@@ -84,7 +86,7 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     Route::delete('questions/{question}', [QuestionController::class, 'destroy'])->can('delete', 'question');
 
     // Device
-    Route::post('devices', [DeviceController::class, 'store']);
+    Route::post('device-tokens', [DeviceTokenController::class, 'store']);
 
     // Media
     Route::post('upload', [MediaController::class, 'upload']);

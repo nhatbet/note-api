@@ -61,8 +61,8 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Article::class, 'author_id', 'id');
     }
 
-    public function devices(): HasMany
+    public function deviceTokens(): HasMany
     {
-        return $this->hasMany(Device::class, 'user_id', 'id');
+        return $this->hasMany(DeviceToken::class, 'user_id', 'id');
     }
 }

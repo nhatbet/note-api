@@ -20,4 +20,12 @@ class UserService
 
         return $userUpdated;
     }
+    
+    public function getList(int $number = 50, callable $callback): void
+    {
+        $this->repository
+            ->select(['id', 'name', 'creator_id'])
+            ->with(['deviceTokens'])
+            ->chunkById($number, $callback);
+    }
 }

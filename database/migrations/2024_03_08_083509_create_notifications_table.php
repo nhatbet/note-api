@@ -18,7 +18,8 @@ return new class extends Migration
             $table->integer('type')->nullable();
             $table->integer('receiver_id');
             $table->integer('status')->default(1);
-            $table->timestamp('send_at');
+            $table->timestamp('send_at')->nullable();
+            $table->json('meta')->nullable();
             $table->timestamps();
         });
     }

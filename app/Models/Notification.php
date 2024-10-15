@@ -19,6 +19,14 @@ class Notification extends Model
         'send_at',
     ];
 
+    const TYPE_1 = 1;
+    const TYPE_2 = 2;
+    const TYPE_3 = 3;
+
+    const STATUS_UNSENT = 0;
+    const STATUS_SENT = 1;
+    const STATUS_READ = 2;
+
     public function receiver(): BelongsTo
     {
         return $this->belongsTo(User::class, 'receiver_id');

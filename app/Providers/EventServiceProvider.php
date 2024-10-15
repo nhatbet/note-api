@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Event;
 use App\Events\LoggedOut;
 use App\Listeners\DeleteDevice;
 use App\Events\CommentUpdated;
+use App\Events\NotificationCreated;
 use App\Listeners\CreateCommentHistory;
+use App\Listeners\PushFCM;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,7 +29,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         CommentUpdated::class => [
             CreateCommentHistory::class,
-        ]
+        ],
+        NotificationCreated::class => [
+            PushFCM::class
+        ],
     ];
 
     /**

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
-class Device extends Model
+class DeviceToken extends Model
 {
     use HasFactory;
 

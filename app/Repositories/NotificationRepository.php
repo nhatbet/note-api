@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Models\Device;
+use App\Models\Notification;
 use Prettus\Repository\Eloquent\BaseRepository;
 
-class DeviceRepository extends BaseRepository
+class NotificationRepository extends BaseRepository
 {
     function model(): string
     {
-        return Device::class;
+        return Notification::class;
     }
 }
