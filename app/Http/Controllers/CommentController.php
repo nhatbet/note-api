@@ -48,7 +48,7 @@ class CommentController extends Controller
 
     public function createForArticle(StoreRequest $request, Article $article): JsonResponse
     {
-        $comment = $this->service->createForModel($article, $request->validated() + ['commentator_id' => $request->user()->getKey()]);
+        $comment = $this->service->createForModel($article, $request);
 
         return response()->json([
             'status' => 200,

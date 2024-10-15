@@ -25,7 +25,7 @@ class CreateNotification implements ShouldQueue
     public function __construct(array $data)
     {
         $this->data = $data;
-        $this->onQueue('notification');
+        // $this->onQueue('notification');
     }
 
     /**
@@ -36,12 +36,28 @@ class CreateNotification implements ShouldQueue
         $notificationService->store($this->data);
     }
 
-    static public function createForArticleOwner(Article $article, Comment $comment, string $name): void
+    static public function createForArticleOwner(int $receiverId, Article $article, Comment $comment, string $name): void
     {
         self::dispatch([
             'title' => "Bình luận mới",
             'body' => "$name vừa bình luận bài viết của bạn",
             'status' => Notification::STATUS_UNSENT,
+            'receiver_id' => $receiverId,
+            'type' => Notification::TYPE_1,
+            'meta' => [
+                'article_id' => $article->getKey(),
+                'comment_id' => $comment->getKey(),
+            ]
+        ]);
+    }
+
+    static public function createForCommentOwner(int $receiverId, Article $article, Comment $comment, string $name): void
+    {
+        self::dispatch([
+            'title' => "Bình luận phản hồi mới",
+            'body' => "$name vừa trả lời bình luận của bạn",
+            'status' => Notification::STATUS_UNSENT,
+            'receiver_id' => $receiverId,
             'type' => Notification::TYPE_1,
             'meta' => [
                 'article_id' => $article->getKey(),

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\CommentCreated;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -11,6 +12,7 @@ use App\Listeners\DeleteDevice;
 use App\Events\CommentUpdated;
 use App\Events\NotificationCreated;
 use App\Listeners\CreateCommentHistory;
+use App\Listeners\CreateNoticeComment;
 use App\Listeners\PushFCM;
 
 class EventServiceProvider extends ServiceProvider
@@ -26,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         LoggedOut::class => [
             DeleteDevice::class,
+        ],
+        CommentCreated::class => [
+            CreateNoticeComment::class
         ],
         CommentUpdated::class => [
             CreateCommentHistory::class,

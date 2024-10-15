@@ -7,20 +7,25 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Services\DeviceTokenService;
 use App\Services\FCMService;
+use App\Services\NotificationService;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
+use Kreait\Firebase\Exception\Messaging\NotFound;
 
 class PushFCM implements ShouldQueue
 {
 
     private FCMService $fCMService;
     private DeviceTokenService $deviceTokenService;
+    private NotificationService $notificationService;
 
-    public function __construct(FCMService $fCMService, DeviceTokenService $deviceTokenService)
+    public function __construct(FCMService $fCMService, DeviceTokenService $deviceTokenService, NotificationService $notificationService)
     {
         $this->fCMService = $fCMService;
         $this->deviceTokenService = $deviceTokenService;
+        $this->notificationService = $notificationService;
     }
 
     /**
@@ -35,6 +40,12 @@ class PushFCM implements ShouldQueue
         }
         $token = $deviceToken->token;
         $notice = $this->fCMService->createNotice($notification->title, $notification->body);
-        $this->fCMService->sendToDevice($token, $notice);
+        
+        try {
+            $this->fCMService->sendToDevice($token, $notice);
+            $this->notificationService->updateToSent($notification);
+        } catch (NotFound $exception) {
+            Log::info($exception->getMessage());
+        }
     }
 }

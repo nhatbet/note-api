@@ -24,4 +24,9 @@ class NotificationService
 
         return $notice;
     }
+
+    public function updateToSent(Notification $notification)
+    {
+        $this->repository->update(['status' => Notification::STATUS_SENT], $notification->getKey());
+    }
 }

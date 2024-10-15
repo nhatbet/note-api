@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\CommentCreated;
 use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\CommentRepository;
@@ -48,9 +49,12 @@ class CommentService
         return $count;
     }
 
-    public function createForModel(Model $model, $attrs): Comment
+    public function createForModel(Model $model, Request $request): Comment
     {
+        $attrs = $request->validated() + ['commentator_id' => $request->user()->getKey()];
         $comment = $model->comments()->create($attrs);
+
+        CommentCreated::dispatch($comment, $model, $request->user());
 
         return $comment;
     }

@@ -17,6 +17,13 @@ class Notification extends Model
         'receiver_id',
         'status',
         'send_at',
+        'meta',
+    ];
+
+    protected $casts = [
+        'created_at' => 'timestamp',
+        'updated_at' => 'timestamp',
+        'meta' => 'json',
     ];
 
     const TYPE_1 = 1;
