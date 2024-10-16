@@ -30,4 +30,14 @@ class Save extends Model
     {
         return $this->morphTo();
     }
+
+    public function isSaved(): bool
+    {
+        return $this->status === self::STATUS_SAVED;
+    }
+
+    public function isUnSaved(): bool
+    {
+        return $this->status === self::STATUS_DELETED;
+    }
 }

@@ -79,6 +79,7 @@ class SelectionController extends Controller
                 'label' => $category->name,
                 'value' => $category->getKey(),
                 'description' => null,
+                'meta' => $category->meta,
             ];
         }
 

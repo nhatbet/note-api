@@ -53,11 +53,15 @@ class SaveController extends Controller
     public function getByArticle(Request $request, Article $article): JsonResponse
     {
         $save = $this->service->getByModel($request->user(),  $article);
+        $data = false;
+            if ($save->isSaved()) {
+            $data = true;
+        }
 
         return response()->json([
             'status' => 200,
             'message' => 'ok',
-            'data' => !!$save
+            'data' => $data
         ]);
     }
 }
