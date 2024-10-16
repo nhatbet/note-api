@@ -13,23 +13,35 @@ class CategoryTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Category::insert([
+        $categories = [
             [
                 'name' => 'Lập trình', 
-                'meta' => "{\"color\":\"#eb4034\"}"
+                'meta' => [
+                    'color' => '#eb4034'
+                ]
             ],
             [
                 'name' => 'Tiếng Anh', 
-                'meta' => "{\"color\":\"#2de33d\"}"
+                'meta' => [
+                    'color' => '#2de33d'
+                ]
             ],
             [
                 'name' => 'Câu hỏi', 
-                'meta' => "{\"color\":\"#2d97e3\"}"
+                'meta' => [
+                    'color' => '#2d97e3'
+                ]
             ],
             [
                 'name' => 'Chuyện trò', 
-                'meta' => "{\"color\":\"#e3e02d\"}"
+                'meta' => [
+                    'color' => '#e3e02d'
+                ]
             ],
-        ]);
+        ];
+
+        foreach ($categories as $category) {
+            Category::create($category);
+        }
     }
 }

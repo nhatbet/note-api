@@ -88,6 +88,7 @@ class SelectionController extends Controller
                 'label' => $tag->name,
                 'value' => $tag->getKey(),
                 'description' => $tag->description,
+                'meta' => $tag->meta,
             ];
         }
 

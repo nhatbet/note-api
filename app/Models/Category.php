@@ -15,6 +15,12 @@ class Category extends Model
         'meta',
     ];
 
+    protected $casts = [
+        'created_at' => 'timestamp',
+        'updated_at' => 'timestamp',
+        'meta' => 'json',
+    ];
+
     public function articles(): HasMany
     {
         return $this->hasMany(Article::class, 'editor_id', 'id');

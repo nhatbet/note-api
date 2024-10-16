@@ -14,6 +14,13 @@ class Tag extends Model
     protected $fillable = [
         'name',
         'description',
+        'meta',
+    ];
+
+    protected $casts = [
+        'created_at' => 'timestamp',
+        'updated_at' => 'timestamp',
+        'meta' => 'json',
     ];
 
     public function posts(): MorphToMany
