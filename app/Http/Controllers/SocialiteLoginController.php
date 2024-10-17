@@ -11,28 +11,18 @@ use Laravel\Socialite\Two\User as GGUser;
 
 class SocialiteLoginController extends Controller
 {
-    public function googleSignInUrl(): JsonResponse
+    public function loginWithProvider(Request $request): JsonResponse
     {
-        return response()->json([
-            'status' => 200,
-            'message' => 'ok',
-            'data' => [
-                'url' => Socialite::driver('google')->stateless()->redirect()->getTargetUrl(),
-            ]
-        ]);
-    }
-
-    public function googleCallback(Request $request): JsonResponse
-    {
+        $accessToken = $request->get('access_token');
+        $provider = $request->get('provider');
         /** @var GGUser $ggUser */
-        // $ggUser = Socialite::driver('google')->stateless()->user();
-        $ggUser = Socialite::with($request->provider)->stateless()->userFromToken($request->access_token);
+        $ggUser = Socialite::with($provider)->stateless()->userFromToken($accessToken);
         /** @var UserRepository $userRepo */
         $userRepo = app(UserRepository::class);
         $user = $userRepo->updateOrCreate(
             [
                 'provider_id' => $ggUser->id,
-                'provider_name' => 'google',
+                'provider_name' => $provider,
             ],
             [
                 'name' => $ggUser->name,
