@@ -94,8 +94,15 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     // Media
     Route::post('upload', [MediaController::class, 'upload']);
 
-    Route::post('/chat/{chatRoomId}/message', [ChatController::class, 'addMessage']);
-    Route::get('/chat/{chatRoomId}/messages', [ChatController::class, 'getMessages']);
+    // Chat
+    Route::post('chat/users', [ChatController::class, 'addUser']); // Thêm người dùng mới
+    Route::post('chat/rooms', [ChatController::class, 'createChatRoom']); // Tạo phòng chat
+    Route::post('chat/rooms/{chatRoomId}/messages', [ChatController::class, 'addMessage']); // Thêm tin nhắn vào phòng chat
+    Route::get('chat/rooms/{chatRoomId}/messages', [ChatController::class, 'getMessages']); // Lấy tin nhắn của phòng chat
+    Route::get('chat/rooms/{chatRoomId}', [ChatController::class, 'getChatRoom']); // Lấy thông tin phòng chat
+    Route::delete('chat/rooms/{chatRoomId}/messages/{messageId}', [ChatController::class, 'deleteMessage']); // Xóa tin nhắn trong phòng chat
+    
+    Route::get('chat/users/{userId}/chatRooms', [ChatController::class, 'getUserChatRooms']); // Lấy tất cả phòng chat mà user tham gia
 
 });
 
