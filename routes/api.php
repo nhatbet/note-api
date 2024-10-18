@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\SocialiteLoginController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaveController;
@@ -92,6 +93,10 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
 
     // Media
     Route::post('upload', [MediaController::class, 'upload']);
+
+    Route::post('/chat/{chatRoomId}/message', [ChatController::class, 'addMessage']);
+    Route::get('/chat/{chatRoomId}/messages', [ChatController::class, 'getMessages']);
+
 });
 
 // test

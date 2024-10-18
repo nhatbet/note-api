@@ -169,6 +169,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        Kreait\Laravel\Firebase\ServiceProvider::class,
     ])->toArray(),
 
     /*
