@@ -13,12 +13,14 @@ class FirestoreService
         $this->firestore = $firestore;
     }
 
-    // Thêm người dùng vào Firestore
-    public function addUser($userData)
+    // Thêm người dùng với UID tùy chỉnh
+    public function addUser($uid, $userData)
     {
         $database = $this->firestore->database();
 
-        return $database->collection('users')->add($userData);
+        $userRef = $database->collection('users')->document($uid);
+
+        return $userRef->set($userData);
     }
 
     // Tạo phòng chat mới
@@ -74,12 +76,20 @@ class FirestoreService
         return true;
     }
 
-    // Lấy tất cả phòng chat mà người dùng tham gia
-    public function getUserChatRooms($userId)
+    // Lấy tất cả phòng chat mà người dùng tham gia với phân trang
+    public function getUserChatRooms($userId, $limit = 10, $startAfter = null)
     {
         $database = $this->firestore->database();
         $chatRoomsRef = $database->collection('chatRooms');
-        $query = $chatRoomsRef->where('participants', 'array-contains', $userId);
+        $query = $chatRoomsRef->where('participants', 'array-contains', $userId)
+            // ->orderBy(fieldPath: 'createdAt', direction: 'desc') // sắp xếp theo thời gian tạo
+            ->limit($limit);
+
+        // Nếu có `startAfter`, thêm điều kiện để phân trang
+        if ($startAfter) {
+            $lastSnapshot = $chatRoomsRef->document($startAfter)->snapshot();
+            $query = $query->startAfter($lastSnapshot);
+        }
 
         return $query->documents();
     }

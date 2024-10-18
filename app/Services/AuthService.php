@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\RegisteredAccount;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Carbon;
@@ -43,6 +44,8 @@ class AuthService
     {
         $userRepo = app(UserRepository::class);
         $user = $userRepo->create($attrs);
+
+        RegisteredAccount::dispatch($user);
 
         return $user;
     }

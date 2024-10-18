@@ -11,8 +11,10 @@ use App\Events\LoggedOut;
 use App\Listeners\DeleteDevice;
 use App\Events\CommentUpdated;
 use App\Events\NotificationCreated;
+use App\Events\RegisteredAccount;
 use App\Listeners\CreateCommentHistory;
 use App\Listeners\CreateNoticeComment;
+use App\Listeners\CreateUserFirestore;
 use App\Listeners\PushFCM;
 
 class EventServiceProvider extends ServiceProvider
@@ -23,8 +25,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
+        RegisteredAccount::class => [
+            CreateUserFirestore::class
+            // SendEmailVerificationNotification::class,
         ],
         LoggedOut::class => [
             DeleteDevice::class,

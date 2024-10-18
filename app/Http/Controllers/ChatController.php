@@ -16,14 +16,16 @@ class ChatController extends Controller
     // Thêm người dùng mới
     public function addUser(Request $request)
     {
+        // $uid = $request->input('uid');
+        $uid = 1;
         $userData = [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'avatar' => $request->input('avatar'),
-            'status' => 'offline',
+            'status' => 'off',
         ];
-
-        $this->firestore->addUser($userData);
+        // Thêm người dùng với UID cụ thể
+        $this->firestore->addUser($uid, $userData);
 
         return response()->json(['status' => 'User added']);
     }
@@ -91,10 +93,15 @@ class ChatController extends Controller
         return response()->json(['status' => 'Message deleted']);
     }
 
-    // API để lấy danh sách các phòng chat mà người dùng tham gia
-    public function getUserChatRooms($userId)
+    // API để lấy danh sách các phòng chat mà người dùng tham gia với phân trang
+    public function getUserChatRooms(Request $request, $userId)
     {
-        $chatRooms = $this->firestore->getUserChatRooms($userId);
+        // Lấy tham số limit và startAfter từ request
+        $limit = $request->input('limit', 10); // số lượng phòng chat trên mỗi trang
+        $startAfter = $request->input('startAfter'); // ID của tài liệu bắt đầu trang tiếp theo
+
+        // Lấy danh sách phòng chat
+        $chatRooms = $this->firestore->getUserChatRooms($userId, $limit, $startAfter);
         $formattedChatRooms = [];
 
         foreach ($chatRooms as $chatRoom) {
@@ -107,6 +114,13 @@ class ChatController extends Controller
             ];
         }
 
-        return response()->json($formattedChatRooms);
+        // Xác định phòng chat cuối cùng để phục vụ phân trang
+        $lastChatRoom = end($formattedChatRooms);
+        $nextPageToken = $lastChatRoom ? $lastChatRoom['id'] : null;
+
+        return response()->json([
+            'chatRooms' => $formattedChatRooms,
+            'nextPageToken' => $nextPageToken // ID của phòng chat cuối để phân trang
+        ]);
     }
 }
