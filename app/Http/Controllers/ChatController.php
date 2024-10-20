@@ -123,4 +123,24 @@ class ChatController extends Controller
             'nextPageToken' => $nextPageToken // ID của phòng chat cuối để phân trang
         ]);
     }
+
+    // API để thêm phản ứng vào tin nhắn
+    public function addReaction(Request $request, $chatRoomId, $messageId)
+    {
+        $emoji = $request->input('emoji'); // Biểu tượng cảm xúc
+        $userId = $request->input('userId'); // ID của người dùng
+
+        $this->firestore->addReaction($chatRoomId, $messageId, $emoji, $userId);
+        return response()->json(['status' => 'Reaction added']);
+    }
+
+    // API để xóa phản ứng khỏi tin nhắn
+    public function removeReaction(Request $request, $chatRoomId, $messageId)
+    {
+        $emoji = $request->input('emoji'); // Biểu tượng cảm xúc
+        $userId = $request->input('userId'); // ID của người dùng
+
+        $this->firestore->removeReaction($chatRoomId, $messageId, $emoji, $userId);
+        return response()->json(['status' => 'Reaction removed']);
+    }
 }

@@ -101,8 +101,12 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     Route::get('chat/rooms/{chatRoomId}/messages', [ChatController::class, 'getMessages']); // Lấy tin nhắn của phòng chat
     Route::get('chat/rooms/{chatRoomId}', [ChatController::class, 'getChatRoom']); // Lấy thông tin phòng chat
     Route::delete('chat/rooms/{chatRoomId}/messages/{messageId}', [ChatController::class, 'deleteMessage']); // Xóa tin nhắn trong phòng chat
-    
+
     Route::get('chat/users/{userId}/chatRooms', [ChatController::class, 'getUserChatRooms']); // Lấy tất cả phòng chat mà user tham gia
+    // Thêm phản ứng vào tin nhắn
+    Route::post('chat/{chatRoomId}/messages/{messageId}/reactions', [ChatController::class, 'addReaction']);
+    // Xóa phản ứng khỏi tin nhắn
+    Route::delete('chat/{chatRoomId}/messages/{messageId}/reactions', [ChatController::class, 'removeReaction']);
 
 });
 
