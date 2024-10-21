@@ -25,7 +25,23 @@ class ArticleService
             $query->search($request->get('title'));
         }
 
-        $index = $query->paginate(20);
+        $index = $query->paginate($request->get('per_page') ?? 20);
+
+        return $index;
+    }
+
+    public function getMyArticle(Request $request)
+    {
+        $query = $this->repository
+            ->where('author_id', $request->user()->getKey());
+        if ($status = $request->get('status')) {
+            $query->where('status', $status);
+        }
+        if ($title = $request->has('title')) {
+            $query->search($title);
+        }
+
+        $index = $query->paginate($request->get('per_page') ?? 20);
 
         return $index;
     }

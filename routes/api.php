@@ -58,6 +58,7 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     Route::post('articles', [ArticleController::class, 'store']);
     Route::put('articles/{article}', [ArticleController::class, 'update'])->can('update', 'article');
     Route::delete('articles/{article}', [ArticleController::class, 'destroy'])->can('delete', 'article');
+    Route::get('articles/created/by-me', [ArticleController::class, 'getMyArticle']);
 
     // Vote article
     Route::post('articles/{article}/up-vote', [ArticleController::class, 'upVote']);

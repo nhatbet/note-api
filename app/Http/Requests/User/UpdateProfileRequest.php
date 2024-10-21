@@ -25,7 +25,6 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'avatar' => 'required|mimes:jpeg,jpg,png,gif|max:4096',
             'dob' => 'required|date_format:Y-m-d',
             'gender' => [
                 'required',

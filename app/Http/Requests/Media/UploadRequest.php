@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Media;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UploadRequest extends FormRequest
 {
@@ -22,8 +23,14 @@ class UploadRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'collection' => 'bail|required|string|max:30',
-            'file' => 'bail|required|max:5120',
+            'collection' => [
+                'bail',
+                'required',
+                'string',
+                'max:30',
+                Rule::in(['avatar', 'article-image'])
+            ],
+            'file' => 'bail|required|max:2048',
         ];
     }
 }

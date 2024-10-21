@@ -19,6 +19,7 @@ class ArticleTableSeeder extends Seeder
                 'content' => 'content ' . $i,
                 'author_id' => 1,
                 'status' => 2,
+                'category_id' => 1,
             ]);
         }
     }

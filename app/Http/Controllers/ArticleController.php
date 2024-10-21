@@ -30,6 +30,17 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function getMyArticle(Request $request): JsonResponse
+    {
+        $index = $this->service->getMyArticle($request);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => $index
+        ]);
+    }
+
     public function show(Article $article): JsonResponse
     {
         $article->load(['comments', 'author']);
