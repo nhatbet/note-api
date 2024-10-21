@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Transformers\User\UserResource;
 
 class UserController extends Controller
 {
@@ -30,10 +31,17 @@ class UserController extends Controller
 
     public function getProfile(Request $request): JsonResponse
     {
+        $user = $request->user()->load([
+            'media' => function ($query) {
+                $query->where('collection_name', 'avatar');
+            }
+        ]);
+        $resource = new UserResource($user);
+
         return response()->json([
             'status' => 200,
             'message' => 'ok',
-            'data' => $request->user()
+            'data' => $resource
         ]);
     }
 }

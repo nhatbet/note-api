@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Events\RegisteredAccount;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Transformers\User\UserResource;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\AuthenticationException;
@@ -17,7 +18,12 @@ class AuthService
         /** @var UserRepository $userRepo */
         $userRepo = app(UserRepository::class);
         /** @var ?User $user */
-        $user = $userRepo->findByField('username', $username)->first();
+        $user = $userRepo->findByField('username', $username)->first()->load([
+            'media' => function ($query) {
+                $query->where('collection_name', 'avatar');
+            }
+        ]);
+        $userResource = new UserResource($user);
 
         if (!$user || !Hash::check($password, $user->password)) {
             // handle error
@@ -31,7 +37,7 @@ class AuthService
             'access_token' => $accessToken->plainTextToken,
             'expires_at' => $accessToken->accessToken->expires_at,
             'refresh_token' => $refreshToken->plainTextToken,
-            'user' => $user,
+            'user' => $userResource
         ];
     }
 
