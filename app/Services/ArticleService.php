@@ -21,8 +21,16 @@ class ArticleService
     {
         $query = $this->repository
             ->where('status', Article::STATUS_PUBLIC);
-        if ($request->has('title')) {
-            $query->search($request->get('title'));
+        if ($title = $request->get('title')) {
+            $query->search($title);
+        }
+        if ($tagsId = $request->get('tags_id')) {
+            $query->whereHas('tags', function ($query) use ($tagsId) {
+                $query->whereIn('tags.id', $tagsId);
+            });
+        }
+        if ($categoriesId = $request->get('categories_id')) {
+            $query->whereIn('category_id', $categoriesId);
         }
 
         $index = $query->paginate($request->get('per_page') ?? 20);

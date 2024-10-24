@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
 use App\Models\Article;
+use App\Transformers\Article\ArticleResource;
 
 class ArticleController extends Controller
 {
@@ -43,12 +44,22 @@ class ArticleController extends Controller
 
     public function show(Article $article): JsonResponse
     {
-        $article->load(['comments', 'author']);
+        $article->load([
+            'comments',
+            'author' => function ($query) {
+                $query->with([
+                    'media' => function ($query) {
+                        $query->where('collection_name', 'avatar');
+                    }
+                ]);
+            }
+        ]);
+        $resource = new ArticleResource($article);
 
         return response()->json([
             'status' => 200,
             'message' => 'ok',
-            'data' => $article
+            'data' => $resource
         ]);
     }
 
