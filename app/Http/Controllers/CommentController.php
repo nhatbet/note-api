@@ -9,6 +9,7 @@ use App\Http\Requests\Comment\StoreRequest;
 use App\Http\Requests\Comment\UpdateRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Transformers\Comment\CommentResource;
 
 class CommentController extends Controller
 {
@@ -21,10 +22,21 @@ class CommentController extends Controller
 
     public function getByArticle(Request $request): JsonResponse
     {
+        $paginator = $this->service->getByArticle($request);
+        $data = [
+            'current_page' => $paginator->currentPage(),
+            'data' => CommentResource::collection($paginator->getCollection()),
+            'from' => $paginator->firstItem(),
+            'last_page' => $paginator->lastPage(),
+            'per_page' => $paginator->perPage(),
+            'to' => $paginator->lastItem(),
+            'total' => $paginator->total(),
+        ];
+
         return response()->json([
             'status' => 200,
             'message' => 'ok',
-            'data' => $this->service->getByArticle($request)
+            'data' => $data
         ]);
     }
 

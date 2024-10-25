@@ -22,7 +22,12 @@ class CommentService
     public function getByArticle(Request $request)
     {
         $comments = $this->repository
-            ->with('commentator')
+            ->with([
+                'commentator',
+                'commentator.media' => function ($query) {
+                    $query->where('collection_name', 'avatar');
+                }
+            ])
             ->withCount('comments')
             ->where('commentable_id', $request->get('article_id'))
             ->where('commentable_type', Article::class)
