@@ -30,8 +30,8 @@ class SaveController extends Controller
 
     public function saveArticle(Request $request, Article $article): JsonResponse
     {
-        $this->service->save($request->user(),  $article);
- 
+        $this->service->save($request->user(), $article);
+
         return response()->json([
             'status' => 200,
             'message' => 'ok',
@@ -41,8 +41,8 @@ class SaveController extends Controller
 
     public function unSaveArticle(Request $request, Article $article): JsonResponse
     {
-        $this->service->unSave($request->user(),  $article);
- 
+        $this->service->unSave($request->user(), $article);
+
         return response()->json([
             'status' => 200,
             'message' => 'ok',
@@ -52,9 +52,9 @@ class SaveController extends Controller
 
     public function getByArticle(Request $request, Article $article): JsonResponse
     {
-        $save = $this->service->getByModel($request->user(),  $article);
+        $save = $this->service->getByModel($request->user(), $article);
         $data = false;
-            if ($save->isSaved()) {
+        if ($save && $save->isSaved()) {
             $data = true;
         }
 
