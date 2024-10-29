@@ -28,6 +28,7 @@ class NotificationService
         if ($type = $reqeust->get('type')) {
             $query->where('type', $type);
         }
+        $query->orderBy('created_at','desc');
 
         $notices = $query->paginate(10);
 
