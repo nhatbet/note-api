@@ -111,6 +111,7 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     Route::delete('chat/{chatRoomId}/messages/{messageId}/reactions', [ChatController::class, 'removeReaction']);
 
     Route::get('notifications', [NotificationController::class, 'index']);
+    Route::get('notifications/count-not-read-yet', [NotificationController::class, 'countNotReadYet']);
 
 });
 

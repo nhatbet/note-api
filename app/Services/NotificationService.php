@@ -47,4 +47,9 @@ class NotificationService
     {
         $this->repository->update(['status' => Notification::STATUS_SENT], $notification->getKey());
     }
+
+    public function countNotReadYet(Request $request): int
+    {
+        return $this->repository->where('receiver_id', $request->user()->getKey())->count();
+    }
 }

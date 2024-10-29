@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use App\Transformers\Notification\NotificationResource;
+use Illuminate\Http\JsonResponse;
 
 class NotificationController extends Controller
 {
@@ -15,9 +16,9 @@ class NotificationController extends Controller
         $this->service = $service;
     }
 
-    public function index(Request $reqeust) 
+    public function index(Request $request): JsonResponse 
     {
-        $paginator = $this->service->index($reqeust);
+        $paginator = $this->service->index($request);
         $data = [
             'current_page' => $paginator->currentPage(),
             'data' => NotificationResource::collection($paginator->getCollection()),
@@ -32,6 +33,15 @@ class NotificationController extends Controller
             'status' => 200,
             'message' => 'ok',
             'data' => $data
+        ]);
+    }
+
+    public function countNotReadYet(Request $request): JsonResponse
+    {
+        return response()->json([
+            'status' => 200,
+            'message' => 'ok',
+            'data' => $this->service->countNotReadYet($request)
         ]);
     }
 }
