@@ -14,6 +14,7 @@ use App\Http\Controllers\DeviceTokenController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\SelectionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +109,8 @@ Route::middleware(['auth:sanctum', 'ability:access-api'])->group(function () {
     Route::post('chat/{chatRoomId}/messages/{messageId}/reactions', [ChatController::class, 'addReaction']);
     // Xóa phản ứng khỏi tin nhắn
     Route::delete('chat/{chatRoomId}/messages/{messageId}/reactions', [ChatController::class, 'removeReaction']);
+
+    Route::get('notifications', [NotificationController::class, 'index']);
 
 });
 

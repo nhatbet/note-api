@@ -40,7 +40,7 @@ class CreateNotification implements ShouldQueue
     {
         self::dispatch([
             'title' => "Bình luận mới",
-            'body' => "$name vừa bình luận bài viết của bạn",
+            'body' => "$name vừa bình luận bài viết '$article->title' của bạn",
             'status' => Notification::STATUS_UNSENT,
             'receiver_id' => $receiverId,
             'type' => Notification::TYPE_1,
@@ -55,7 +55,7 @@ class CreateNotification implements ShouldQueue
     {
         self::dispatch([
             'title' => "Bình luận phản hồi mới",
-            'body' => "$name vừa trả lời bình luận của bạn",
+            'body' => "$name vừa trả lời bình luận của bạn trong bài viết '$article->title'",
             'status' => Notification::STATUS_UNSENT,
             'receiver_id' => $receiverId,
             'type' => Notification::TYPE_1,

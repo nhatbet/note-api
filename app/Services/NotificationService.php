@@ -6,6 +6,9 @@ use App\Models\Notification;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\NotificationRepository;
 use App\Events\NotificationCreated;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class NotificationService
 {
@@ -14,6 +17,21 @@ class NotificationService
     public function __construct(NotificationRepository $repository)
     {
         $this->repository = $repository;
+    }
+
+    public function index(Request $reqeust): LengthAwarePaginator
+    {
+        $query = $this->repository;
+        if ($status = $reqeust->get('status')) {
+            $query->where('status', $status);
+        }
+        if ($type = $reqeust->get('type')) {
+            $query->where('type', $type);
+        }
+
+        $notices = $query->paginate(10);
+
+        return $notices;
     }
 
     public function store(array $attrs): Notification
