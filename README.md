@@ -10,6 +10,7 @@
 `sudo apt-get install -y php-dev php-pear pkg-config libz-dev`
 `sudo pecl install grpc`
 `sudo apt-get install php8.1-grpc` <!-- extension=grpc.so --> cài extension, hoặc sửa file php.ini
+<!-- note: feature chat need package composer require "google/cloud-firestore"  -->
 
 ### Setup
 Install docker and docker-compose on your PC

@@ -26,7 +26,7 @@ RUN docker-php-ext-configure gd \
 RUN docker-php-ext-install pdo pdo_mysql gd exif
 
 # Cài đặt grpc extension
-RUN apk add --no-cache $PHPIZE_DEPS \
-    && pecl install grpc \
-    && docker-php-ext-enable grpc \
-    && apk del $PHPIZE_DEPS
+# RUN apk add --no-cache $PHPIZE_DEPS \
+#     && pecl install grpc \
+#     && docker-php-ext-enable grpc \
+#     && apk del $PHPIZE_DEPS
