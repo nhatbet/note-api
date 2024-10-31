@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'email' => $user->email,
             'gender' => $user->gender,
             'dob' => $user->dob,
-            'avatar' => $user->media[0]?->original_url,
+            'avatar' => $user->getFirstMedia('avatar')?->original_url,
             'created_at' => $user->created_at,
         ];
 
