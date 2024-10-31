@@ -19,9 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    // 'allowed_origins' => ['*'],
-    'allowed_origins' => ['https://bejewelled-meringue-b2ec77.netlify.app'],
-    
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
