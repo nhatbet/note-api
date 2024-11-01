@@ -28,6 +28,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./certs:/etc/nginx/certs
       - ./html:/usr/share/nginx/html # Thêm dòng này để mount thư mục
+      - ./acme:/etc/acme.sh # Thêm dòng này để mount /etc/acme.sh
     networks:
       - app-network
 
