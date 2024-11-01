@@ -35,7 +35,7 @@ services:
     container_name: nginx_${APP_NAME}
     environment:
       VIRTUAL_HOST: nhatnguyen.online,www.nhatnguyen.online # Thay thế bằng tên miền thực tế của bạn
-      LETSENCRYPT_HOST: nhatnguyen.online,nhatnguyen.online
+      LETSENCRYPT_HOST: nhatnguyen.online,www.nhatnguyen.online
       LETSENCRYPT_EMAIL: nhathdtk@gmail.com # Thay thế bằng email của bạn
     volumes:
       - ./:/var/www/html
