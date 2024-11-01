@@ -17,6 +17,7 @@ jobs:
         env:
           EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
         run: |
+          mkdir -p ~/.ssh  # Tạo thư mục .ssh nếu chưa tồn tại
           echo "$EC2_SSH_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
