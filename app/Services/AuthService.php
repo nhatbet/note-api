@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Events\RegisteredAccount;
 use App\Models\User;
 use App\Repositories\UserRepository;
-use App\Transformers\User\UserResource;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\AuthenticationException;

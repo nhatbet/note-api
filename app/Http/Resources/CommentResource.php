@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Transformers\Comment;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Transformers\User\UserResource;
+use App\Http\Resources\UserResource;
+use App\Models\Comment;
 
 class CommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
-     * @return array
+     * @return array<string, mixed>
      */
-    public function toArray($request): array
+    public function toArray(Request $request): array
     {
+        /** @var Comment $comment */
         $comment = $this->resource;
         $array = [
             'id' => $comment->getKey(),
@@ -25,8 +26,11 @@ class CommentResource extends JsonResource
             'created_at' => $comment->created_at,
             'updated_at' => $comment->updated_at,
             'comments_count' => $comment->comments_count,
-            'commentator' => new UserResource($comment->commentator),
         ];
+
+        if ($comment->relationLoaded('commentator')) {
+            $array['commentator'] = new UserResource($comment->commentator);
+        }
 
         return $array;
     }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\NotificationService;
 use Illuminate\Http\Request;
-use App\Transformers\Notification\NotificationResource;
+use App\Http\Resources\NotificationResource;
 use Illuminate\Http\JsonResponse;
 
 class NotificationController extends Controller

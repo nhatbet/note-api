@@ -33,6 +33,10 @@ class ArticleResource extends JsonResource
             $array['author'] = new UserResource($article->author);
         }
 
+        if ($article->relationLoaded('comments')) {
+            $array['comments'] = CommentResource::collection($article->comments);
+        }
+
         return $array;
     }
 }

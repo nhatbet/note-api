@@ -25,6 +25,7 @@ class UserResource extends JsonResource
             'email' => $user->email,
             'dob' => $user->dob,
             'gender' => $user->gender,
+            'created_at' => $user->created_at,
         ];
         if ($user->relationLoaded('media')) {
             $array['avatar'] = (new MediaResource($user->getMedia()->last()))['url'] ?? null;

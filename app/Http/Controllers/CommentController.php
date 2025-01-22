@@ -9,7 +9,7 @@ use App\Http\Requests\Comment\StoreRequest;
 use App\Http\Requests\Comment\UpdateRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Transformers\Comment\CommentResource;
+use App\Http\Resources\CommentResource;
 
 class CommentController extends Controller
 {
