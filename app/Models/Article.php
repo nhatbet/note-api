@@ -21,6 +21,7 @@ class Article extends Model
         'author_id',
         'status',
         'view_count',
+        'category_id',
     ];
 
     /**

@@ -8,7 +8,6 @@ use App\Services\DeviceTokenService;
 use App\Services\FCMService;
 use Illuminate\Http\JsonResponse;
 use Kreait\Firebase\Messaging\Notification;
-use App\Models\Notification as ModelNotify;
 
 
 class DeviceTokenController extends Controller

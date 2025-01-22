@@ -20,7 +20,12 @@ class ArticleService
     public function index(Request $request)
     {
         $query = $this->repository
-            ->where('status', Article::STATUS_PUBLIC);
+            ->where('status', Article::STATUS_PUBLIC)->with([
+                    'author:id,name',
+                    'author.media' => function ($query) {
+                        $query->where('collection_name', 'avatar');
+                    }
+                ]);
         if ($title = $request->get('title')) {
             $query->search($title);
         }
@@ -33,7 +38,7 @@ class ArticleService
             $query->whereIn('category_id', $categoriesId);
         }
 
-        $index = $query->paginate($request->get('per_page') ?? 20);
+        $index = $query->paginate(9);
 
         return $index;
     }
@@ -56,6 +61,7 @@ class ArticleService
 
     public function store(array $attrs): Article
     {
+        $attrs['category_id'] = 1;
         $article = $this->repository->create(Arr::except($attrs, ['tags']));
 
         // /** @var TagService $tagService */

@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
 use App\Models\Article;
-use App\Transformers\Article\ArticleResource;
+use App\Http\Resources\ArticleResource;
 
 class ArticleController extends Controller
 {
@@ -24,22 +24,14 @@ class ArticleController extends Controller
     {
         $index = $this->service->index($request);
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'ok',
-            'data' => $index
-        ]);
+        return responder()->getPaginator($index, ArticleResource::class);
     }
 
     public function getMyArticle(Request $request): JsonResponse
     {
         $index = $this->service->getMyArticle($request);
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'ok',
-            'data' => $index
-        ]);
+        return responder()->getPaginator($index, ArticleResource::class);
     }
 
     public function show(Article $article): JsonResponse
@@ -56,11 +48,7 @@ class ArticleController extends Controller
         ]);
         $resource = new ArticleResource($article);
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'ok',
-            'data' => $resource
-        ]);
+        return responder()->getSuccess($resource);
     }
 
     public function store(StoreRequest $request): JsonResponse
