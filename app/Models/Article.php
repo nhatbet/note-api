@@ -30,6 +30,11 @@ class Article extends Model
     protected $searchable = [
         'title',
     ];
+
+    protected $casts = [
+        'created_at' => 'timestamp',
+        'updated_at' => 'timestamp',
+    ];
     
     const STATUS_DRAFT = 1;
     const STATUS_PUBLIC = 2;
