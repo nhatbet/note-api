@@ -7,6 +7,7 @@ use App\Repositories\ArticleRepository;
 use App\Services\TagService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ArticleService
 {
@@ -17,7 +18,7 @@ class ArticleService
         $this->repository = $repository;
     }
 
-    public function index(Request $request)
+    public function index(Request $request): LengthAwarePaginator
     {
         $query = $this->repository
             ->where('status', Article::STATUS_PUBLIC)->with([
@@ -37,13 +38,12 @@ class ArticleService
         if ($categoriesId = $request->get('categories_id')) {
             $query->whereIn('category_id', $categoriesId);
         }
-
         $index = $query->paginate(9);
 
         return $index;
     }
 
-    public function getMyArticle(Request $request)
+    public function getMyArticle(Request $request): LengthAwarePaginator
     {
         $query = $this->repository
             ->where('author_id', $request->user()->getKey());
@@ -53,8 +53,7 @@ class ArticleService
         if ($title = $request->has('title')) {
             $query->search($title);
         }
-
-        $index = $query->paginate($request->get('per_page') ?? 20);
+        $index = $query->paginate(9);
 
         return $index;
     }
